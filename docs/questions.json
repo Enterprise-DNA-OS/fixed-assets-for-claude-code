@@ -1,0 +1,42 @@
+[
+  {
+    "question": "Which assets have book value but no acquisition evidence?",
+    "command": "attention"
+  },
+  {
+    "question": "Which estimate reviews are already due?",
+    "command": "review-due"
+  },
+  {
+    "question": "Who holds the most carrying value within each company?",
+    "command": "custodian-load"
+  },
+  {
+    "question": "Which assets have not been physically sighted under our annual policy?",
+    "command": "verification-due"
+  },
+  {
+    "question": "Which fully depreciated assets are still in use?",
+    "command": "fully-depreciated"
+  },
+  {
+    "question": "What will the next monthly charge be for each asset?",
+    "command": "depreciation-preview"
+  },
+  {
+    "question": "Which reviewer checked each recorded month?",
+    "command": "runs"
+  },
+  {
+    "question": "What did a disposal realise compared with its book value?",
+    "command": "disposals"
+  },
+  {
+    "question": "Which source export supplied an asset and what changed afterwards?",
+    "command": "asset"
+  },
+  {
+    "question": "How much cost and carrying value sits in each asset class?",
+    "command": "summary"
+  }
+]

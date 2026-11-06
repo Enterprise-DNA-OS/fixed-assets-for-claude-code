@@ -1,0 +1,20 @@
+[
+  {
+    "title": "What needs attention",
+    "ask": "Which assets need an evidence check or a review?",
+    "command": "node scripts/assets.mjs attention",
+    "output": "  code    name               company         currency  carrying amount  issue                    due on    \n  ------  -----------------  --------------  --------  ---------------  -----------------------  ----------\n  KW-001  CNC router         Kauri Workshop  NZD       168000.00        Review due               2026-10-17\n  KW-001  CNC router         Kauri Workshop  NZD       168000.00        Verification overdue     2025-10-02\n  KW-002  CNC lathe          Kauri Workshop  NZD       84000.00         Missing source evidence  null      \n  KW-003  Warehouse van      Kauri Workshop  NZD       35000.00         No custodian             null      \n  KW-003  Warehouse van      Kauri Workshop  NZD       35000.00         Verification overdue     null      \n  KW-004  Inspection laptop  Kauri Workshop  NZD       0.00             Review due               2026-10-27"
+  },
+  {
+    "title": "Next monthly charge",
+    "ask": "What will the next depreciation charge be for Kauri Workshop?",
+    "command": "node scripts/assets.mjs depreciation-preview \"--company=Kauri Workshop\" --period=2026-11-30",
+    "output": "  id                                    code    name               currency  period      opening amount  charge amount  closing amount  category   location\n  ------------------------------------  ------  -----------------  --------  ----------  --------------  -------------  --------------  ---------  --------\n  20000000-0000-4000-8000-000000000001  KW-001  CNC router         NZD       2026-11-30  168000.00       3000.00        165000.00       Plant      Hamilton\n  20000000-0000-4000-8000-000000000002  KW-002  CNC lathe          NZD       2026-11-30  84000.00        2000.00        82000.00        Plant      Hamilton\n  20000000-0000-4000-8000-000000000003  KW-003  Warehouse van      NZD       2026-11-30  35000.00        833.33         34166.67        Vehicles   Tauranga\n  20000000-0000-4000-8000-000000000004  KW-004  Inspection laptop  NZD       2026-11-30  0.00            0.00           0.00            Computers  Hamilton"
+  },
+  {
+    "title": "Value by custodian",
+    "ask": "Who holds our assets and how much book value is assigned to each person?",
+    "command": "node scripts/assets.mjs custodian-load",
+    "output": "  company               currency  custodian  assets  carrying amount\n  --------------------  --------  ---------  ------  ---------------\n  Banksia Distribution  AUD       Ari        1       60000.00       \n  Kauri Workshop        NZD                  1       35000.00       \n  Kauri Workshop        NZD       Hana       1       84000.00       \n  Kauri Workshop        NZD       Mere       2       168000.00"
+  }
+]

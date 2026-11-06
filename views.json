@@ -1,13 +1,35 @@
 [
   {
     "name": "week",
-    "title": "This week",
-    "subtitle": "Fixed Assets for Claude Code: what needs attention, rendered by npm run view",
+    "title": "Asset review this week",
     "sections": [
       {
-        "title": "Needs attention",
-        "note": "TODO(author): point this at the industry's attention view (overdue, stuck, quiet).",
-        "sql": "select 'replace me' as item, 'TODO(author)' as why"
+        "title": "Book value by category",
+        "sql": "select * from asset_summary order by company,category"
+      },
+      {
+        "title": "Follow up",
+        "sql": "select * from asset_attention order by company,code,issue"
+      }
+    ]
+  },
+  {
+    "name": "custodians",
+    "title": "Custody and verification",
+    "sections": [
+      {
+        "title": "Who holds the assets",
+        "sql": "select code,name,company,location,custodian,verified_on from asset_balances where status='active' order by company,custodian,code"
+      }
+    ]
+  },
+  {
+    "name": "disposals",
+    "title": "Disposal review",
+    "sections": [
+      {
+        "title": "Proceeds and book value",
+        "sql": "select * from disposal_results order by disposed_on,code"
       }
     ]
   }

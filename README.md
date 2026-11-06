@@ -1,115 +1,138 @@
-<h1 align="center">Fixed Assets for Claude Code</h1>
+# Fixed Assets for Claude Code
 
-<p align="center">
-  <strong>The open-source fixed asset register that is just a database and Claude Code.</strong>
-</p>
+Know what your assets cost, what they are worth on the books and which records need attention.
 
-<p align="center">
-  Created by <a href="https://www.enterprisedna.co"><strong>Enterprise DNA</strong></a>. Free and open source. Works with Claude Code, Codex, OpenCode or Cursor.
-</p>
+| Do it yourself | We customise it | We run it for you |
+|---|---|---|
+| Free, MIT. Install and try the demo. | Your asset classes, reports, opening exports and review controls. | Installed and operated through Omni by Enterprise DNA. One setup fee, then a retainer. |
 
-<!-- three-doors -->
-<table align="center">
-  <tr>
-    <td align="center"><strong>Do it yourself</strong><br/>Clone it, run it, own it. Free, MIT.<br/><a href="#quick-start">Quick start</a></td>
-    <td align="center"><strong>We customise it</strong><br/>Your fields, your rules, your FMIS Fixed Assets data brought across.<br/><a href="https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=fmis">Book a call</a></td>
-    <td align="center"><strong>We run it for you</strong><br/>Installed, connected and operated inside Omni. Setup fee, then a retainer.<br/><a href="https://enterprisedna.co/omni/instead-of/fmis?utm_source=github&utm_medium=readme&utm_campaign=fmis">How it works</a></td>
-  </tr>
-</table>
+[Get your version built](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=fmis) · [Instead of FMIS Fixed Assets](https://enterprisedna.co/omni/instead-of/fmis)
 
-<p align="center">
-  <a href="#what-is-this">What is this</a> &bull;
-  <a href="#why-no-front-end">Why no front end</a> &bull;
-  <a href="#quick-start">Quick start</a> &bull;
-  <a href="#the-commands">Commands</a> &bull;
-  <a href="#instead-of-fmis">Instead of FMIS Fixed Assets</a> &bull;
-  <a href="#want-it-installed-and-run-for-you">Installed for you</a> &bull;
-  <a href="#license">License</a>
-</p>
+## Start with the asset review
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Node-20+-339933?style=flat-square" alt="Node 20+" />
-  <img src="https://img.shields.io/badge/PostgreSQL-any-336791?style=flat-square" alt="PostgreSQL" />
-  <img src="https://img.shields.io/badge/PGlite-embedded-3ecf8e?style=flat-square" alt="PGlite" />
-  <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="MIT License" />
-</p>
-
----
-
-## What is this
-
-Fixed Assets for Claude Code does the job you pay FMIS Fixed Assets for, as a Postgres database and a set of agent commands. There is no web front end. You open the folder in [Claude Code](https://claude.com/claude-code) (or Codex, OpenCode, Cursor: see `AGENTS.md`) and ask for what you want in plain language. It runs the right query, and it can answer questions the FMIS Fixed Assets dashboard cannot.
-
-<!-- TODO(author): the annual bill. One sentence: what a 10 to 50 person business typically pays FMIS Fixed Assets per year, all in, with a source. -->
-
-Want the same thing with a web front end, or built on a different stack? That is a customisation, and it is exactly what Enterprise DNA does: [book a call](https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=fmis).
-
-<!-- TODO(author): two or three sentences on what this specific product covers and who it is for. -->
-
-## Why no front end
-
-- The front end was only ever there because the database was hard to talk to. That is no longer true.
-- Your data sits in plain Postgres tables you own. Any tool can read them. No export, no lock-in.
-- No seats, no tiers, no add-ons. Read [docs/why-no-front-end.md](docs/why-no-front-end.md) for the honest trade-offs too.
-
-## Quick start
-
-Sixty seconds, no database install (an embedded Postgres runs inside Node):
+Node 20 or later.
 
 ```bash
 git clone https://github.com/Enterprise-DNA-OS/fixed-assets-for-claude-code.git
 cd fixed-assets-for-claude-code
 npm install
+npm test
 npm run demo
+npm run assets -- weekly-review
+npm run docs
+npm run view
 ```
 
-Then open the folder in Claude Code and type a slash command. <!-- TODO(author): name the first command to try. -->
+Open the folder with Claude Code, Codex, OpenCode or Cursor. CLAUDE.md and AGENTS.md share 31 command recipes and one CLI with 29 commands. Every CLI command accepts --json. Names match without case sensitivity, unique id prefixes work, and ambiguous references list candidates and exit 1.
 
-### Use it with your own Postgres or Supabase
+PGlite works locally without a server. DATABASE_URL selects PostgreSQL. DATA_DIR chooses the embedded database and OUTPUT_DIR chooses private reports. The demo is fictional and includes overdue reviews, missing invoices, missing custodians and stale sightings. Never seed a live register. PostgreSQL demo seeding requires ALLOW_DEMO_DATABASE=1.
 
-Copy `.env.example` to `.env`, set `DATABASE_URL`, then `npm run migrate`. Same commands, shared data, no per-seat fee.
+## Five finance rituals
 
-## The commands
+- /month-end: read category totals, preview next month's depreciation and inspect outstanding reviews.
+- /post-depreciation: record a complete month with a preparer, different reviewer and reason.
+- /verification-due and /verify: find assets due for a sighting and record the evidence.
+- /review-due and /review: review useful life, residual value and method, with a dated conclusion.
+- /dispose and /draft-disposal: record proceeds and book value, then prepare the approval sheet.
 
-<!-- TODO(author): a table of the slash commands in .claude/commands and what each one does. -->
+/weekly-review combines totals, attention and custodian workload. /transfer and /log retain movement reasons and notes.
 
-| Command | What it does |
+## The calculation you own
+
+Each asset has cost, accumulated depreciation at an agreed opening month end, residual value and remaining life in months. Only the remaining depreciable amount is allocated. The base uses whole-month straight-line charges from the later of the next month or the availability month. Cumulative integer-cent rounding makes the final charge land exactly on residual value. No month is skipped or posted twice.
+
+No charge is taken in the disposal month. A disposal must fall in the next unposted month. Its approval records proceeds less the carrying value at the previous posted month. Active summaries exclude disposed assets. The full register retains a disposed asset's carrying value at disposal for history. There is no tax, impairment, revaluation, lease or foreign-exchange engine. Confirm the book convention with your accountant.
+
+A review records unchanged estimates only. Changes need a prospective schedule migration with tests. This keeps an apparently simple edit from changing past charges. Asset values support two decimal places. Company totals never combine currencies.
+
+Runs, depreciation, disposals, imports and events reject normal updates and deletes. A database owner can bypass controls. Reviewer names are attribution, not authenticated signatures. Use trusted operators locally. Shared use needs authenticated identities, database roles, backups and a tested restore. No journal is sent to a general ledger.
+
+## Ten questions this register answers
+
+These are working analyses, not unsupported claims about FMIS's custom reporting.
+
+1. Which assets have book value but no acquisition evidence? Run `attention`.
+2. Which estimate reviews are already due? Run `review-due`.
+3. Who holds the most carrying value within each company? Run `custodian-load`.
+4. Which assets have not been physically sighted under our annual policy? Run `verification-due`.
+5. Which fully depreciated assets are still in use? Run `fully-depreciated`.
+6. What will the next monthly charge be for each asset? Run `depreciation-preview`.
+7. Which reviewer checked each recorded month? Run `runs`.
+8. What did a disposal realise compared with its book value? Run `disposals`.
+9. Which source export supplied an asset and what changed afterwards? Run `asset`.
+10. How much cost and carrying value sits in each asset class? Run `summary`.
+
+## Bring your FMIS register
+
+FMIS supports CSV and spreadsheet exports. Its report headings vary. Supply an explicit heading map and one financial-book snapshot per company.
+
+```bash
+npm run assets -- import fmis --company="Your business" --file=fixtures/fmis-assets.csv --mapping=fixtures/fmis-mapping.json --as-of=2025-12-31 --actor="Your name" --dry-run
+```
+
+Create the company first at the same opening month end. Remove --dry-run only after comparing the counts and balances. The sample is an illustrative configured export, not a universal FMIS layout. Bad rows reject the whole batch. Identical repeats at the same opening period skip existing records. Changed records are refused. Original row data, the mapping and the source hash stay in the database. Keep attachments and the original CSV in your own archive. [The full switch guide](docs/replace-fmis.md).
+
+## Paperwork and read-only views
+
+Edit brand.json for your name, logo and colours. npm run docs renders asset evidence sheets, depreciation journal proposals and disposal approvals for the records present. The untouched demo has asset evidence sheets. Journal and disposal documents appear once those transactions exist. npm run view renders the weekly review, custody and disposal views. /draft-asset and /draft-disposal write individual documents to drafts/.
+
+/compliance flags review dates against [cited accounting principles and local policies](docs/compliance.md). A clean report is not an accounting opinion. [What a screen adds](docs/why-no-front-end.md).
+
+## Your first hour: ten things to ask for
+
+1. Put our business name and logo on the documents.
+2. Show the assets with no invoice reference.
+3. List overdue estimate reviews.
+4. Show which custodians need to sight their assets.
+5. Map the headings in our FMIS export.
+6. Run the import without saving it.
+7. Compare opening balances by category and company.
+8. Explain the next monthly charge for one asset.
+9. Draft a disposal approval sheet.
+10. Add our own review field through a tested migration.
+
+/customise changes fields and rules. /new-view adds a read-only report.
+
+## Commands
+
+| Command | Job |
 |---|---|
-| `/...` | ... |
+| `companies` | Read company currencies and last posted months. |
+| `register` | Read the current asset register. |
+| `asset` | Read an asset with its full history. |
+| `summary` | Read cost and book value by company and category. |
+| `attention` | Read overdue reviews and missing evidence. |
+| `review-due` | Read assets whose estimates need review. |
+| `verification-due` | Read assets not sighted within the annual policy. |
+| `fully-depreciated` | Read active assets at residual value. |
+| `custodian-load` | Read book value and asset count by custodian. |
+| `depreciation-preview` | Preview the next whole-month straight-line charge. |
+| `post-depreciation` | Record a reviewed monthly charge. |
+| `runs` | Read posted month history. |
+| `disposals` | Read disposal proceeds and gain or loss. |
+| `imports` | Read imported source hashes. |
+| `month-end` | Read the register totals, proposed charge and outstanding reviews. |
+| `weekly-review` | Read the Monday asset exceptions. |
+| `compliance` | Check cited review requirements and local evidence policies. |
+| `add-company` | Create a company at a month-end opening date. |
+| `add` | Add an asset with an opening balance. |
+| `transfer` | Record a location and custodian change. |
+| `verify` | Record a physical sighting. |
+| `review` | Record an unchanged-estimate review. |
+| `dispose` | Record a reviewed disposal without changing the ledger. |
+| `log` | Append an asset note. |
+| `import` | Import a mapped FMIS CSV export atomically. |
+| `export` | Write a complete JSON export and current register CSV. |
+| `draft-asset` | Draft an asset evidence sheet. |
+| `draft-disposal` | Draft a disposal approval record. |
+| `help` | Read commands and input requirements. |
 
-## Instead of FMIS Fixed Assets
+## Verification and price context
 
-<!-- TODO(author): how to bring data across from FMIS Fixed Assets; link docs/replace-fmis.md -->
+npm test exercises all 29 CLI commands on a disposable database. It checks penny rounding, month continuity, same-person review rejection, disposal history, dry runs, malformed imports, batch rollback, repeat imports, escaped documents, exports and process exit codes. The manual workflow tests Node 20/22 on Linux/Windows and PostgreSQL 17. Consult the workflow results before claiming a platform passed.
 
-## Architecture
+FMIS currently quotes privately. A historical vendor procurement schedule supports a five-figure annual scenario, but no current NZ/AU customer invoice was verified. [Research and six scores](docs/research.md).
 
-```
-fixed-assets-for-claude-code/
-  CLAUDE.md                 how the operator wants this run (routing table + house rules)
-  AGENTS.md                 the same, for Codex / OpenCode / Cursor / Gemini CLI
-  .claude/commands/         the slash commands
-  scripts/                  the CLI the commands drive
-  scripts/lib/db.mjs        one adapter: DATABASE_URL (pg) or embedded PGlite
-  supabase/migrations/      plain SQL schema
-  supabase/seed.sql         demo data
-  docs/                     the thesis and the migration guide
-```
+Enterprise DNA maps your agreed exports and builds your fields, review process and reports through Omni by Enterprise DNA, for one setup fee then a retainer. [Book 30 minutes with Sam](https://enterprisedna.co/omni/book/?offer=replace-software&utm_medium=readme&utm_campaign=fmis).
 
-## Built for coding agents
-
-The database, CLI and command recipes work with Claude Code, Codex, OpenCode or Cursor. Ask your coding agent for a new command and have it implement and test the change against the same records.
-
-## Contributing
-
-Issues and pull requests are welcome. Keep the shape: plain SQL, a small CLI, a slash command per recurring job, no front end.
-
-## Want it installed and run for you?
-
-Enterprise DNA installs Fixed Assets for Claude Code for your business, migrates your FMIS Fixed Assets data, connects it to the rest of your tools, and runs it for you as part of **Omni**, our managed Command Center. One setup fee, then a monthly retainer.
-
-- Book a call: [enterprisedna.co/omni/book](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=fmis)
-- Read more: [enterprisedna.co/omni/instead-of/fmis](https://enterprisedna.co/omni/instead-of/fmis?utm_source=github&utm_medium=readme&utm_campaign=fmis)
-
-## License
-
-MIT. Copyright (c) 2026 Enterprise DNA.
+MIT. Not affiliated with FMIS or Anthropic. Hosting, storage and coding-agent usage have their own costs.

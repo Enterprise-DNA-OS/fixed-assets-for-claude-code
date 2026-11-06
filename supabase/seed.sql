@@ -1,0 +1,11 @@
+insert into companies(id,name,currency,last_period) values
+ ('10000000-0000-4000-8000-000000000001','Kauri Workshop','NZD',(date_trunc('month',current_date)-interval '1 day')::date),
+ ('10000000-0000-4000-8000-000000000002','Banksia Distribution','AUD',(date_trunc('month',current_date)-interval '1 day')::date)
+on conflict do nothing;
+insert into assets(id,company_id,code,name,category,location,custodian,cost_cents,residual_cents,opening_depreciation_cents,remaining_months,baseline_date,available_date,evidence_ref,review_due,verified_on) values
+ ('20000000-0000-4000-8000-000000000001','10000000-0000-4000-8000-000000000001','KW-001','CNC router','Plant','Hamilton','Mere',24000000,2400000,7200000,48,(date_trunc('month',current_date)-interval '1 day')::date,current_date-730,'INV-DEMO-001',current_date-20,current_date-400),
+ ('20000000-0000-4000-8000-000000000002','10000000-0000-4000-8000-000000000001','KW-002','CNC lathe','Plant','Hamilton','Hana',12000000,1200000,3600000,36,(date_trunc('month',current_date)-interval '1 day')::date,current_date-650,'',current_date+30,current_date-60),
+ ('20000000-0000-4000-8000-000000000003','10000000-0000-4000-8000-000000000001','KW-003','Warehouse van','Vehicles','Tauranga','',6000000,1000000,2500000,30,(date_trunc('month',current_date)-interval '1 day')::date,current_date-500,'INV-DEMO-003',current_date+90,null),
+ ('20000000-0000-4000-8000-000000000004','10000000-0000-4000-8000-000000000001','KW-004','Inspection laptop','Computers','Hamilton','Mere',300000,0,300000,1,(date_trunc('month',current_date)-interval '1 day')::date,current_date-1600,'INV-DEMO-004',current_date-10,current_date-10),
+ ('20000000-0000-4000-8000-000000000005','10000000-0000-4000-8000-000000000002','BD-001','Packing conveyor','Plant','Brisbane','Ari',8000000,800000,2000000,40,(date_trunc('month',current_date)-interval '1 day')::date,current_date-500,'INV-DEMO-005',current_date+120,current_date-15)
+on conflict do nothing;

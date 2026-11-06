@@ -1,11 +1,54 @@
 [
   {
-    "name": "example",
-    "title": "TODO(author): the first document this industry must produce",
-    "for_each": "select gen_random_uuid() as id, 'Example' as name",
+    "name": "asset-evidence",
+    "title": "Asset evidence sheet",
+    "for_each": "select id,code from assets order by code",
+    "file": "code",
+    "sections": [
+      {
+        "title": "Register",
+        "layout": "record",
+        "sql": "select code,name,company,currency,category,location,custodian,cost_cents,accumulated_cents,carrying_cents,residual_cents,remaining_months,baseline_date,available_date,review_due,evidence_ref from asset_balances where id=$1"
+      },
+      {
+        "title": "Monthly depreciation",
+        "sql": "select period,amount_cents,closing_cents,location from depreciation where asset_id=$1 order by period"
+      },
+      {
+        "title": "History",
+        "sql": "select kind,actor,detail,created_at from events where asset_id=$1 order by created_at,id"
+      }
+    ]
+  },
+  {
+    "name": "depreciation-journal",
+    "title": "Depreciation journal proposal",
+    "for_each": "select id,period::text name from runs order by period",
     "file": "name",
     "sections": [
-      { "title": "Details", "sql": "select 'replace me' as item, $1::text as record_id" }
+      {
+        "title": "Reviewed batch",
+        "layout": "record",
+        "sql": "select c.name company,c.currency,r.period,r.actor,r.reviewer,r.reason from runs r join companies c on c.id=r.company_id where r.id=$1"
+      },
+      {
+        "title": "Debit depreciation expense; credit accumulated depreciation",
+        "note": "Amounts are equal debit and credit proposals. Nothing is posted to a general ledger. Map your account codes before use.",
+        "sql": "select a.code,a.name,c.currency,d.amount_cents debit_cents,d.amount_cents credit_cents,d.closing_cents from depreciation d join assets a on a.id=d.asset_id join companies c on c.id=a.company_id where d.run_id=$1 order by a.code"
+      }
+    ]
+  },
+  {
+    "name": "disposal-approval",
+    "title": "Disposal approval record",
+    "for_each": "select d.id,a.code from disposals d join assets a on a.id=d.asset_id",
+    "file": "code",
+    "sections": [
+      {
+        "title": "Disposal",
+        "layout": "record",
+        "sql": "select a.code,a.name,c.currency,d.disposed_on,d.proceeds_cents,d.carrying_cents,d.proceeds_cents-d.carrying_cents gain_loss_cents,d.actor,d.reviewer,d.evidence_ref,d.reason from disposals d join assets a on a.id=d.asset_id join companies c on c.id=a.company_id where d.id=$1"
+      }
     ]
   }
 ]

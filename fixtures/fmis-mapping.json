@@ -1,0 +1,15 @@
+{
+  "code": "Asset Number",
+  "name": "Description",
+  "category": "Asset Class",
+  "location": "Location",
+  "custodian": "Custodian",
+  "cost": "Original Cost",
+  "residual": "Residual Value",
+  "opening-depreciation": "Accumulated Depreciation",
+  "remaining-months": "Remaining Life Months",
+  "available-date": "Available for Use",
+  "evidence-ref": "Evidence Reference",
+  "review-due": "Next Review",
+  "verified-on": "Last Sighting"
+}
