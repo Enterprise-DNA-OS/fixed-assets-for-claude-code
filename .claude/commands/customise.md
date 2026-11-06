@@ -1,3 +1,7 @@
+---
+description: "Read CLAUDE.md, docs/compliance.md and the current migrations"
+---
+
 # /customise
 
 Read CLAUDE.md, docs/compliance.md and the current migrations. Ask the operator for the field, category or rule they want changed. Inspect the existing records first.

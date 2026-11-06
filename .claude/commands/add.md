@@ -1,3 +1,7 @@
+---
+description: "Add an asset with an opening balance."
+---
+
 # /add
 
 Add an asset with an opening balance.

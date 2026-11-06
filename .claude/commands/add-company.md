@@ -1,3 +1,7 @@
+---
+description: "Create a company at a month-end opening date."
+---
+
 # /add-company
 
 Create a company at a month-end opening date.

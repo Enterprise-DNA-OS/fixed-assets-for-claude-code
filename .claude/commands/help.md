@@ -1,3 +1,7 @@
+---
+description: "Read commands and input requirements."
+---
+
 # /help
 
 Read commands and input requirements.

@@ -1,3 +1,7 @@
+---
+description: "Record a reviewed monthly charge."
+---
+
 # /post-depreciation
 
 Record a reviewed monthly charge.

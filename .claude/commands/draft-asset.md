@@ -1,3 +1,7 @@
+---
+description: "Draft an asset evidence sheet."
+---
+
 # /draft-asset
 
 Draft an asset evidence sheet.

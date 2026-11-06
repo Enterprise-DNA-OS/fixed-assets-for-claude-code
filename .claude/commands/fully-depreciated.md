@@ -1,3 +1,7 @@
+---
+description: "Read active assets at residual value."
+---
+
 # /fully-depreciated
 
 Read active assets at residual value.

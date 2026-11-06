@@ -1,3 +1,7 @@
+---
+description: "Record a physical sighting."
+---
+
 # /verify
 
 Record a physical sighting.

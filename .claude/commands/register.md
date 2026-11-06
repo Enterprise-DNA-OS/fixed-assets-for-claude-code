@@ -1,3 +1,7 @@
+---
+description: "Read the current asset register."
+---
+
 # /register
 
 Read the current asset register.

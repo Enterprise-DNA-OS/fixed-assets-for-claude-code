@@ -1,3 +1,7 @@
+---
+description: "Read company currencies and last posted months."
+---
+
 # /companies
 
 Read company currencies and last posted months.

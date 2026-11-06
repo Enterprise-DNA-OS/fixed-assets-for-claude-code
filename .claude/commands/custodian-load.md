@@ -1,3 +1,7 @@
+---
+description: "Read book value and asset count by custodian."
+---
+
 # /custodian-load
 
 Read book value and asset count by custodian.

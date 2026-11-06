@@ -1,3 +1,7 @@
+---
+description: "Import a mapped FMIS CSV export atomically."
+---
+
 # /import
 
 Import a mapped FMIS CSV export atomically.

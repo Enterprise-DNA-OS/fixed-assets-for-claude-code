@@ -1,3 +1,7 @@
+---
+description: "Read the Monday asset exceptions."
+---
+
 # /weekly-review
 
 Read the Monday asset exceptions.

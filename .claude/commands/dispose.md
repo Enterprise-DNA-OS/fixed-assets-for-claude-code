@@ -1,3 +1,7 @@
+---
+description: "Record a reviewed disposal without changing the ledger."
+---
+
 # /dispose
 
 Record a reviewed disposal without changing the ledger.

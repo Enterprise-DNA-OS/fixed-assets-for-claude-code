@@ -1,3 +1,7 @@
+---
+description: "Read imported source hashes."
+---
+
 # /imports
 
 Read imported source hashes.

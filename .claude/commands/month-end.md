@@ -1,3 +1,7 @@
+---
+description: "Read the register totals, proposed charge and outstanding reviews."
+---
+
 # /month-end
 
 Read the register totals, proposed charge and outstanding reviews.

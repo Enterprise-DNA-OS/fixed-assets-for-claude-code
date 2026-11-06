@@ -1,3 +1,7 @@
+---
+description: "Read disposal proceeds and gain or loss."
+---
+
 # /disposals
 
 Read disposal proceeds and gain or loss.

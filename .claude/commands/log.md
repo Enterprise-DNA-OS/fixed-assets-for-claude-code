@@ -1,3 +1,7 @@
+---
+description: "Append an asset note."
+---
+
 # /log
 
 Append an asset note.

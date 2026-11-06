@@ -1,3 +1,7 @@
+---
+description: "Preview the next whole-month straight-line charge."
+---
+
 # /depreciation-preview
 
 Preview the next whole-month straight-line charge.

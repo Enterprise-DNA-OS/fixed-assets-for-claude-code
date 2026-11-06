@@ -1,3 +1,7 @@
+---
+description: "Write a complete JSON export and current register CSV."
+---
+
 # /export
 
 Write a complete JSON export and current register CSV.

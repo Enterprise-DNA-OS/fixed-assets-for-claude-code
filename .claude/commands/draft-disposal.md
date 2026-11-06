@@ -1,3 +1,7 @@
+---
+description: "Draft a disposal approval record."
+---
+
 # /draft-disposal
 
 Draft a disposal approval record.

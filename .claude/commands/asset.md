@@ -1,3 +1,7 @@
+---
+description: "Read an asset with its full history."
+---
+
 # /asset
 
 Read an asset with its full history.

@@ -1,3 +1,7 @@
+---
+description: "Read the question and the existing SQL views"
+---
+
 # /new-view
 
 Read the question and the existing SQL views. Add a read-only SELECT to views.json, with a clear title and named columns. Use the current brand.json and the existing renderer. Keep companies and currencies separate.

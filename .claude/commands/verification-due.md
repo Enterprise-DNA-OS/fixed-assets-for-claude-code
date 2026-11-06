@@ -1,3 +1,7 @@
+---
+description: "Read assets not sighted within the annual policy."
+---
+
 # /verification-due
 
 Read assets not sighted within the annual policy.
